@@ -1,0 +1,17 @@
+server:
+  port: 8001
+spring:
+  application:
+    name: account-server
+  datasource:
+    url: jdbc:oracle:thin:@localhost:1521:orcl
+    driver-class-name: oracle.jdbc.driver.OracleDriver
+    username: C##SHANE
+    password: 123456
+    type: com.alibaba.druid.pool.DruidDataSource
+
+  cloud:
+    consul:
+      host: localhost
+      port: 8500
+
