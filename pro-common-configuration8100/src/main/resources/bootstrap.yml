@@ -1,0 +1,17 @@
+server:
+  port: 8100
+spring:
+  application:
+    name: common-configuration
+  cloud:
+    consul:
+      host: localhost
+      port: 8500
+      # 开启健康检查
+      discovery:
+        enabled: true
+        # 健康心跳检查地址
+        health-check-url: http://${spring.cloud.client.ip-address}:${server.port}/actuator/health
+        # 轮询时间
+        health-check-interval: 10s
+        prefer-ip-address: true
