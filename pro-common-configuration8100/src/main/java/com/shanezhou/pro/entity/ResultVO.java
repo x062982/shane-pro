@@ -21,6 +21,10 @@ public class ResultVO<T> {
         this(ExceptionCodeEnum.SUCCESS, data);
     }
 
+    public ResultVO (String message) {
+        this(ExceptionCodeEnum.SUCCESS.getCode(), message);
+    }
+
     public ResultVO (ExceptionCodeEnum code, T data) {
         this.code = code.getCode();
         this.message = code.getMsg();
