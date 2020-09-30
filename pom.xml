@@ -5,7 +5,7 @@
 
     <groupId>com.shanezhou.cloud</groupId>
     <artifactId>shane-pro</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>${pro.shane.version}</version>
     <name>shane-pro</name>
     <packaging>pom</packaging>
 
@@ -19,6 +19,7 @@
 
     <!-- 统一管理jar包版本 -->
     <properties>
+        <pro.shane.version>0.0.1-SNAPSHOT</pro.shane.version>
         <spring.boot.version>2.2.2.RELEASE</spring.boot.version>
         <spring.cloud.version>Hoxton.SR1</spring.cloud.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
