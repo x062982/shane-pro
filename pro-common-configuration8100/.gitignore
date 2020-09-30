@@ -1,6 +1,7 @@
 # Created by .ignore support plugin (hsz.mobi)
 ### Java template
 # Compiled class file
+/target
 *.class
 
 # Log file
@@ -32,6 +33,3 @@ hs_err_pid*
 *.iml
 out
 gen
-../pro-account-server8001
-../pro-oauth2-server6001
-/target
