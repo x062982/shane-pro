@@ -21,7 +21,7 @@ public class AccountVO {
      * 用户名
      */
     @NotNull(message = "用户名不能为空，请输入用户名！")
-    @Size(min = 6, message = "最少输入6个字符！")
+    @Size(min = 2, message = "用户名最少输入2个字符！")
     private String username;
 
     /**

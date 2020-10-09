@@ -29,12 +29,11 @@ public class AccountController {
     }
 
     @PostMapping("/account")
-    public ResultVO createAccount(@RequestBody @Valid AccountVO vo) {
+    public void createAccount(@RequestBody @Valid AccountVO vo) {
         boolean isSave = accountService.save(convertEntity(vo));
         if (!isSave) {
             throw new APIException("创建账户失败！");
         }
-        return new ResultVO("账户创建成功");
     }
 
     @GetMapping("/account/{id}")
@@ -44,11 +43,14 @@ public class AccountController {
     }
 
     @GetMapping("/account/username")
-    public AccountVO getAccountById(@RequestParam("username") String username) {
+    public AccountVO getAccountByName(@RequestParam("username") String username) {
         AccountEntity accountEntity = accountService
                 .getOne(new QueryWrapper<AccountEntity>()
                     .eq("USERNAME", username)
                     .eq("ROWNUM", 1));
+        if (accountEntity == null) {
+            throw new APIException("用户名：" + username + "不存在");
+        }
         return convertVO(accountEntity);
     }
 
@@ -68,7 +70,7 @@ public class AccountController {
         if (entity != null) {
             vo.setId(entity.getId());
             vo.setUsername(entity.getUsername());
-            //vo.setPassword(entity.getPassword());
+            vo.setPassword(entity.getPassword().toCharArray());
             vo.setRoleId(entity.getRoleId());
         }
         return vo;

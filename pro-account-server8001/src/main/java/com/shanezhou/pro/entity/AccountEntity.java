@@ -19,7 +19,7 @@ import java.io.Serializable;
 @Data
 @EqualsAndHashCode(callSuper = false)
 @TableName("PRACTICE_ACCOUNT")
-@KeySequence(value = "SEQ_PRACTICE_ACCOUNT")
+@KeySequence(value = "SEQ_ACCOUNT_ID")
 public class AccountEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
