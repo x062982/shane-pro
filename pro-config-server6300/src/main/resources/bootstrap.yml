@@ -1,0 +1,56 @@
+server:
+  port: 6300
+spring:
+  application:
+    name: config-server
+  cloud:
+    consul:
+      port: 8500
+      host: localhost
+    config:
+      server:
+        git:
+          clone-on-start: true
+          uri: git@github.com:x062982/cloud-config-repository.git
+          ignore-local-ssh-settings: true
+#          host-key-algorithm: ssh-rsa
+#          host-key: msiKey
+          private-key: |
+            -----BEGIN RSA PRIVATE KEY-----
+            MIIEpAIBAAKCAQEAy7HHwbUJT8xHU3gImg84pXV96DWFiNsG73fQXOBiok6aiQEZ
+            2a2WfqoSOsX4JO5y0hR68Bs7rUAmOqe41hXHV2sTZw3Sjs2rWgUFZ+PmrklB/FII
+            Tm3PDIFhmVuEjgWHngCYeyfGtY5a+ou8Ngka1LOFPIuiKOPsMxaitUUQy/awpmhe
+            kYwgwp+4qQPjyR4XN4HnuhxnC1EMTSsy90dhpSOgePdQFd2N+afZrWCEUm3tCg/v
+            jQ/LRVswQGnN96RAyaaPkJxjET9fgDFxAcY70GIXil9Cir0tb4nZa6+0W+3JJDqx
+            uWbAxo4YaAAkxCrEDgV3OvyW/Gxz5JBtWhH/+wIDAQABAoIBADAhvC/7lU2z2Y7R
+            qEavHhWK48uBCiLCjqr7RtMLeoMby8xf5DnZmNwpV9FngjFH3v3hNQOTi9BufhoS
+            E80SrF3twVHypDR2SO0mjpZz9chtKxhyUeAmdmxgDi3swC/HArrFLUK8rWmtT7Yw
+            WrLyB9MG8I7T9+dtpByWVrA6t7NaFYLzpWQ2zJXQBwegRvupQbowWJlQJ60yDx2V
+            E00OgdA4Hy/svO/JgHQrniDw0BV0XqaxIZASsupreNeEtLMRyeFLUSmIML9VS9M1
+            DHwZ2ITUacy2VM9BW4ZLZoU5YVRWNCHHQQlcZeEyTpPOpCEpp92PvYkueKFkdkG7
+            Ewj2EpECgYEA6nL3PWJT+gjqUJFJwWvWnXl8+CwQa+QK492nVrV5xpdKMiBA+FhV
+            xTQfPL27GMX2nWYhZmI39wXnkB4eFprmlOgrVbYHlc9vnkDNSQc/qRQAY9lAvGdl
+            jLfCYXO4nhL9FbOnkXPpRVXcH7lyySXGuY0mcLjw1U4zhlO3+w9Ks98CgYEA3msZ
+            cXYq4VFjM0PgYIWtWZ1zrku+qlw+cweZAWqrzUNxsSGZVUCD6Xm4lMspwDdjxQbC
+            ECPc1pOni5YFSlO9bJ1z6WZP/rFcx1sVNXtld776Z8uy8p8oPKUEhVkz2Jh+08ZZ
+            FqxbE7sl5BUOw5oyCLsiFx981QYuwCsXYlKQF2UCgYEA3jfWDIK0ohvtLCxpwkGa
+            jGxofToW3oypnc2sHM2p/QfNNbHIoxvnQCHlMceMHTEWTZ5OLiMOdL9N+xXw4vAz
+            ehSNbpI4olCZtWAqs/uA5Zuluv5jE7DVWgma3o+2/210ISvFumIpSqTVHeTC3dFG
+            iP024EULUMLsp3eWvQqDffUCgYBrKKB2iN859XNc5Kv69QzC61grtnSjMZQo6ZUv
+            GIyzdXYWSEDO0Sl82Fc04Pk5kbYw3AOtsQmaHEORvfLIj7Xo2adZ4SBTbnJr3hdG
+            0C/f1JRiY8LQoBvLtBmMgaC4DyizsZGEmf+7buRfkkGtveGzUS2ohFQpcjQeA+Td
+            Szf+/QKBgQC7c2ND9rr/mLpIZvVNfp6/FxTgVWo/M3vVZe1yWu8oOaGLgSZ+ODWW
+            FnkA+5Mg9yMaZoL1qagBckt9+4cJqjTvDd32WsRI7fp9Dr7FngghnX92FtlzXtzF
+            QaMjUSPuONf5/mnZvZwue8tuwzX3Cp6fl2ApQ/qG3pxm6FFadl2r7w==
+            -----END RSA PRIVATE KEY-----
+  rabbitmq:
+    password: shane
+    username: shane
+    host: localhost
+    port: 5672
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "bus-refresh"
