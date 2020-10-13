@@ -33,4 +33,5 @@ hs_err_pid*
 out
 gen
 
-/*/target/**
+/**/target/
+/pro-config-server6300/target/
