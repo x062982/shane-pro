@@ -1,17 +1,23 @@
 package com.shanezhou.pro.controller;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.shanezhou.pro.annotation.ApiIdempotent;
 import com.shanezhou.pro.entity.AccountEntity;
 import com.shanezhou.pro.entity.ResultVO;
 import com.shanezhou.pro.entity.vo.AccountVO;
 import com.shanezhou.pro.exception.APIException;
 import com.shanezhou.pro.service.IAccountService;
+import com.shanezhou.pro.service.IIdempotentService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 /**
  * @author ShaneZhou
@@ -22,11 +28,10 @@ import java.util.List;
 public class AccountController {
 
     @Autowired
-    private IAccountService accountService;
+    private IIdempotentService idempotentService;
 
-    public void setAccountService(IAccountService accountService) {
-        this.accountService = accountService;
-    }
+    @Autowired
+    private IAccountService accountService;
 
     @PostMapping("/account")
     public void createAccount(@RequestBody @Valid AccountVO vo) {
@@ -55,7 +60,8 @@ public class AccountController {
     }
 
     @GetMapping("/accounts")
-    public List<AccountVO> getAccounts() {
+    @ApiIdempotent(type = ApiIdempotent.ApiIdempotentEnum.check)
+    public List<AccountVO> getAccounts(HttpServletRequest request) {
         List<AccountEntity> accountEntities = accountService.list(null);
         List<AccountVO> accountVOs = new ArrayList<>();
         accountEntities.forEach(entity -> {
@@ -64,6 +70,14 @@ public class AccountController {
         return accountVOs;
     }
 
+    @GetMapping("/token")
+    public String getUrlToken(HttpServletRequest request) {
+        String uri = request.getRequestURI() + "?" + System.currentTimeMillis();
+        //String urlToken = UUID.nameUUIDFromBytes(uri.getBytes()).toString().replaceAll("-", "");
+        //idempotentService.createUrlToken(urlToken);
+        int a = 1 / 0;
+        return "index";
+    }
 
     public AccountVO convertVO(AccountEntity entity) {
         AccountVO vo = new AccountVO();
@@ -71,7 +85,7 @@ public class AccountController {
             vo.setId(entity.getId());
             vo.setUsername(entity.getUsername());
             vo.setPassword(entity.getPassword().toCharArray());
-            vo.setRoleId(entity.getRoleId());
+            //vo.setRoleId(entity.getRoleId());
         }
         return vo;
     }
@@ -82,7 +96,7 @@ public class AccountController {
             entity.setId(vo.getId());
             entity.setUsername(vo.getUsername());
             entity.setPassword(new String(vo.getPassword()));
-            entity.setRoleId(vo.getRoleId());
+            //entity.setRoleId(vo.getRoleId());
         }
         return entity;
     }

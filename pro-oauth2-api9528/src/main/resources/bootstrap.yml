@@ -1,0 +1,14 @@
+server:
+  port: 9528
+spring:
+  application:
+    name: oauth2-api
+  cloud:
+    consul:
+      host: localhost
+      port: 8500
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"

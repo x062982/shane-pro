@@ -26,7 +26,7 @@ public class GlobalExceptionController {
 
     @ExceptionHandler(APIException.class)
     public ResultVO<String> APIExceptionHandler(APIException e) {
-        return new ResultVO<>(ExceptionCodeEnum.FAILED, e.getMsg());
+        return new ResultVO<>(e.getCode(), e.getMsg());
     }
 
     @ExceptionHandler(ConstraintViolationException.class)
@@ -36,7 +36,7 @@ public class GlobalExceptionController {
 
     @ExceptionHandler(RuntimeException.class)
     public ResultVO<String> RuntimeExceptionHandler(RuntimeException e) {
-        return new ResultVO<>(ExceptionCodeEnum.ERROR, e.getMessage());
+        return new ResultVO<>(ExceptionCodeEnum.ERROR, e.getLocalizedMessage());
     }
 
     @ExceptionHandler(Exception.class)

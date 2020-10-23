@@ -17,7 +17,7 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice;
  * @since 2020/9/25 周五
  */
 // 注解用于指定扫描包
-@RestControllerAdvice(basePackages = {"com.shanezhou.pro.controller"})
+@RestControllerAdvice(basePackages = {"com.shanezhou.pro.*.controller"})
 public class ResponseControllerAdvice implements ResponseBodyAdvice<Object> {
 
     @Override

@@ -45,7 +45,7 @@ public class AccountEntity implements Serializable {
     /**
     * 角色
     */
-    @TableField(value = "ROLE_ID", jdbcType = JdbcType.DOUBLE, updateStrategy = FieldStrategy.NOT_NULL)
-    private Long roleId;
+    //@TableField(value = "ROLE_ID", jdbcType = JdbcType.DOUBLE, updateStrategy = FieldStrategy.NOT_NULL)
+    //private Long roleId;
 
 }

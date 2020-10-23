@@ -3,14 +3,21 @@ server:
 spring:
   application:
     name: account-server
-  datasource:
-    url: jdbc:oracle:thin:@localhost:1521:orcl
-    driver-class-name: oracle.jdbc.driver.OracleDriver
-    username: C##SHANE
-    password: 123456
-    type: com.alibaba.druid.pool.DruidDataSource
-
   cloud:
-    consul:
-      host: localhost
-      port: 8500
+    config:
+      discovery:
+        enabled: true
+        service-id: config-server
+  rabbitmq:
+    password: shane
+    username: shane
+    host: localhost
+    port: 5672
+  thymeleaf:
+    cache: false
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'

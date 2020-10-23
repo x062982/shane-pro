@@ -1,0 +1,170 @@
+<!--* 
+    *
+    * @Author  ShaneZhou
+    * @Time 2020/06/01 17:00:13
+-->
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+    <meta name="generator" content="Jekyll v4.0.1">
+    <title></title>
+
+    <link rel="canonical" href="https://getbootstrap.com/docs/4.5/examples/dashboard/">
+
+    <!-- Bootstrap core CSS -->
+    <link href="../assets/dist/css/bootstrap.css"
+          th:href="@{/assets/dist/css/bootstrap.css}" rel="stylesheet">
+
+    <style>
+        .bd-placeholder-img {
+            font-size: 1.125rem;
+            text-anchor: middle;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+
+        @media (min-width: 768px) {
+            .bd-placeholder-img-lg {
+                font-size: 3.5rem;
+            }
+        }
+    </style>
+    <link href="/assets/dist/css/dashboard.css"
+          th:href="@{/assets/dist/css/dashboard.css}" rel="stylesheet">
+    <link href="form-validation.css" th:href="@{/assets/dist/css/form-validation.css}" rel="stylesheet">
+</head>
+<body>
+
+<div th:replace="~{common/bar :: topbar}"></div>
+<div class="container-fluid">
+    <div class="row">
+
+        <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
+            <div th:replace="~{common/bar :: sidebar(activeUri = 'emps')}"></div>
+
+            <h2 th:text="${emp== null ? '用户添加' : '用户修改'}"></h2>
+            <div class="col-md-8 order-md-1">
+                <form class="needs-validation" th:action="@{/emp}" method="post" validate>
+
+                    <input name="_method" hidden="hidden" value="put" th:if="${emp} != null">
+                    <input hidden="hidden" name="id" th:value="${emp.id}" th:if="${emp != null}">
+
+                    <div class="mb-3">
+                        <label for="firstName">用户名<font color="red" th:if="${msg} != null" th:text="${msg}"></font></label>
+                        <input type="text" name="userName" class="form-control"
+                               id="firstName" placeholder="请输入你的用户名..."
+                               th:value="${emp} != null ? ${emp.userName}" required>
+                        <div class="invalid-feedback">
+                            Valid username is required.
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="password">密码</label>
+                        <input type="text" class="form-control" name="password" id="password"
+                               placeholder="请输入你的密码..." th:value="${emp} != null ? ${emp.password}" required>
+                        <div class="invalid-feedback">
+                            Valid password is required.
+                        </div>
+                    </div>
+
+<!--                    <div class="mb-3">-->
+<!--                        <label for="username">Username</label>-->
+<!--                        <div class="input-group">-->
+<!--                            <div class="input-group-prepend">-->
+<!--                                <span class="input-group-text">@</span>-->
+<!--                            </div>-->
+<!--                            <input type="text" class="form-control" id="username" placeholder="Username" required>-->
+<!--                            <div class="invalid-feedback" style="width: 100%;">-->
+<!--                                Your username is required.-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
+                    <h6 class="mb-3">性别</h6>
+
+                    <div class="d-block my-3">
+                        <div class="custom-control custom-radio">
+                            <input id="credit" name="gender" type="radio" value="1"
+                                   class="custom-control-input" th:checked="${emp} != null ? ${emp.gender == 1}" checked required>
+                            <label class="custom-control-label" for="credit">男</label>
+                        </div>
+                        <div class="custom-control custom-radio">
+                            <input id="debit" name="gender" type="radio" value="0"
+                                   th:checked="${emp} != null ? ${emp.gender == 0}"
+                                   class="custom-control-input" required>
+                            <label class="custom-control-label" for="debit">女</label>
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="age">年龄</label>
+                        <input type="text" class="form-control" id="age" name="age"
+                               placeholder="请输入你的年龄..." th:value="${emp} != null ? ${emp.age}" required>
+                        <div class="invalid-feedback">
+                            Please enter your age.
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="email">Email地址<span class="text-muted">(Optional)</span></label>
+                        <input type="email" name="email" class="form-control" id="email"
+                               placeholder="请输入你的邮箱..." th:value="${emp} != null ? ${emp.email}" value="">
+                        <div class="invalid-feedback">
+                            Please enter a valid email address for shipping updates.
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="birthday">出生日期<span class="text-muted">(Optional)</span></label>
+                        <input type="date" name="birthday" class="form-control" id="birthday"
+                               placeholder="请输入你的出生日期..."
+                               th:value="${emp} != null ? ${#dates.format(emp.birthday, 'yyyy-MM-dd')}" required>
+                        <div class="invalid-feedback">
+                            Please enter your birthday.
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="department">部门</label>
+                        <select class="custom-select d-block w-100" name="deptId"
+                                id="department" required>
+                            <option th:value="${dept.id}" th:text="${dept.deptName}"
+                                    th:each="dept : ${departments}"
+                                    th:selected="${emp} != null ? ${emp.deptId == dept.id}"></option>
+                        </select>
+                        <div class="invalid-feedback">
+                            请选择一个部门...
+                        </div>
+                    </div>
+
+                    <hr class="mb-4">
+                    <div class="row">
+                        <button class="col-6 btn btn-primary btn-lg btn-block" type="submit"
+                                th:text="${emp == null ? '添加' : '修改'}">添 加</button>
+                        <a class="col-6 btn btn-primary btn-lg btn-block" type="submit"
+                           th:href="@{/emps}">取 消</a>
+                    </div>
+                </form>
+            </div>
+        </main>
+    </div>
+</div>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script>window.jQuery || document.write('<script src="../assets/js/vendor/jquery.slim.min.js"' +
+    ' th:src="@{/assets/js/vendor/jquery.slim.min.js}"><\/script>')</script>
+<script src="../assets/dist/js/bootstrap.bundle.js" th:src="@{/assets/dist/js/bootstrap.bundle.js}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/feather-icons/4.9.0/feather.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script>window.jQuery || document.write('<script src="../assets/js/vendor/jquery.slim.min.js"><\/script>')</script>
+<script src="form-validation.js" th:src="@{/assets/dist/js/form-validation.js}"></script>
+<script src="/webjars/jquery/3.5.1/jquery.js" th:src="@{/webjars/jquery/3.5.1/jquery.js}"></script>
+</body>
+
+</html>

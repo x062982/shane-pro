@@ -43,6 +43,7 @@ spring:
             FnkA+5Mg9yMaZoL1qagBckt9+4cJqjTvDd32WsRI7fp9Dr7FngghnX92FtlzXtzF
             QaMjUSPuONf5/mnZvZwue8tuwzX3Cp6fl2ApQ/qG3pxm6FFadl2r7w==
             -----END RSA PRIVATE KEY-----
+
   rabbitmq:
     password: shane
     username: shane
@@ -53,4 +54,4 @@ management:
   endpoints:
     web:
       exposure:
-        include: "bus-refresh"
+        include: 'bus-refresh'

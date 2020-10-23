@@ -13,6 +13,12 @@
         <module>pro-oauth2-server6001</module>
         <module>pro-account-server8001</module>
         <module>pro-common-configuration8100</module>
+        <module>pro-gateway-server8000</module>
+        <module>pro-oauth2-jwt6002</module>
+        <module>pro-oauth2-gateway9527</module>
+        <module>pro-oauth2-api9528</module>
+        <module>pro-config-server6300</module>
+        <module>pro-shane-admin</module>
     </modules>
 
     <description>Demo project for Spring Boot</description>

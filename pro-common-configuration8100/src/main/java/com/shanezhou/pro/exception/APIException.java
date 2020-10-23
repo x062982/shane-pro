@@ -1,5 +1,6 @@
 package com.shanezhou.pro.exception;
 
+import com.shanezhou.pro.enums.ExceptionCodeEnum;
 import lombok.Getter;
 
 /**
@@ -26,4 +27,7 @@ public class APIException extends RuntimeException {
         this.msg = msg;
     }
 
+    public APIException(ExceptionCodeEnum e) {
+        this(e.getCode(), e.getMsg());
+    }
 }
