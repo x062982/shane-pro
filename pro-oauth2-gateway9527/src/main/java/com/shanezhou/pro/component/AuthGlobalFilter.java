@@ -1,10 +1,6 @@
 package com.shanezhou.pro.component;
 
-import cn.hutool.core.codec.Base64;
 import com.nimbusds.jose.JWSObject;
-import com.shanezhou.pro.annotation.ApiIdempotent;
-import org.aopalliance.intercept.MethodInterceptor;
-import org.aopalliance.intercept.MethodInvocation;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.cloud.gateway.filter.GatewayFilterChain;
 import org.springframework.cloud.gateway.filter.GlobalFilter;
@@ -12,12 +8,9 @@ import org.springframework.core.Ordered;
 import org.springframework.http.server.reactive.ServerHttpRequest;
 import org.springframework.stereotype.Component;
 import org.springframework.web.server.ServerWebExchange;
-import org.springframework.web.servlet.HandlerInterceptor;
 import reactor.core.publisher.Mono;
 
 import java.text.ParseException;
-import java.util.Random;
-import java.util.UUID;
 
 /**
  * 将解析token放置header中    全局过滤
@@ -25,7 +18,7 @@ import java.util.UUID;
  * @since 2020/10/12 周一
  */
 @Component
-public class AuthGlobalFilter implements GlobalFilter, Ordered, MethodInterceptor {
+public class AuthGlobalFilter implements GlobalFilter, Ordered {
 
     @Override
     public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
@@ -50,10 +43,4 @@ public class AuthGlobalFilter implements GlobalFilter, Ordered, MethodIntercepto
         return 0;
     }
 
-    @Override
-    public Object invoke(MethodInvocation methodInvocation) throws Throwable {
-        ApiIdempotent annotation = methodInvocation.getMethod().getAnnotation(ApiIdempotent.class);
-        System.out.println(annotation);
-        return true;
-    }
 }

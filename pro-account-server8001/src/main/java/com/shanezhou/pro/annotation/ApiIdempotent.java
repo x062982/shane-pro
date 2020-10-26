@@ -6,10 +6,28 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
+/**
+ * @author shanezhou
+ */
 @Target({ElementType.METHOD})
 @Retention(RetentionPolicy.RUNTIME)
 public @interface ApiIdempotent {
-    public enum ApiIdempotentEnum {check, create}
 
-    ApiIdempotentEnum type() default ApiIdempotentEnum.check;
+
+    /**
+     * ApiIdempotent 注释类型的枚举类
+     */
+    public enum ApiIdempotentEnum {
+        /**
+         * 检查
+         */
+        CHECK,
+
+        /**
+         * 创建
+         */
+        CREATE
+    }
+
+    ApiIdempotentEnum type() default ApiIdempotentEnum.CHECK;
 }

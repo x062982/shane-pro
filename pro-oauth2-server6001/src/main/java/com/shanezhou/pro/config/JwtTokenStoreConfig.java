@@ -1,5 +1,6 @@
 package com.shanezhou.pro.config;
 
+import com.shanezhou.pro.component.JwtTokenEnhancer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.ClassPathResource;
@@ -24,7 +25,7 @@ public class JwtTokenStoreConfig {
 
     @Bean
     public JwtAccessTokenConverter jwtAccessTokenConverter() {
-        JwtAccessTokenConverter converter = new JwtAccessTokenConverter();
+        JwtAccessTokenConverter converter = new JwtTokenEnhancer();
         converter.setKeyPair(keyPair());
         return converter;
     }

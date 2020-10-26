@@ -13,14 +13,16 @@ import org.springframework.security.oauth2.config.annotation.web.configuration.A
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableAuthorizationServer;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerEndpointsConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerSecurityConfigurer;
-import org.springframework.security.oauth2.provider.token.TokenEnhancer;
-import org.springframework.security.oauth2.provider.token.TokenEnhancerChain;
-import org.springframework.security.oauth2.provider.token.TokenStore;
+import org.springframework.security.oauth2.provider.ClientDetailsService;
+import org.springframework.security.oauth2.provider.endpoint.TokenEndpoint;
+import org.springframework.security.oauth2.provider.token.*;
 import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
 import org.springframework.security.oauth2.provider.token.store.KeyStoreKeyFactory;
 
 import java.security.KeyPair;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -43,8 +45,8 @@ public class OAuth2Config extends AuthorizationServerConfigurerAdapter {
     @Autowired
     private TokenStore jwtTokenStore;
 
-    @Autowired
-    private JwtTokenEnhancer jwtTokenEnhancer;
+    //@Autowired
+    //private JwtTokenEnhancer jwtTokenEnhancer;
 
     @Autowired
     private JwtAccessTokenConverter jwtAccessTokenConverter;
@@ -63,7 +65,7 @@ public class OAuth2Config extends AuthorizationServerConfigurerAdapter {
                 .withClient("client-shane")
                 .secret(passwordEncoder.encode("secret-shane"))
                 .authorizedGrantTypes("refresh_token", "authorization_code", "password")
-                .accessTokenValiditySeconds(60 * 60 * 3)
+                .accessTokenValiditySeconds(10)
                 .refreshTokenValiditySeconds(60 * 60 * 24)
                 .scopes("all");
 
@@ -76,17 +78,17 @@ public class OAuth2Config extends AuthorizationServerConfigurerAdapter {
      */
     @Override
     public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
-        TokenEnhancerChain enhancerChain = new TokenEnhancerChain();
-        List<TokenEnhancer> delegates = new ArrayList<>();
-        delegates.add(jwtTokenEnhancer);
-        delegates.add(jwtAccessTokenConverter);
-        enhancerChain.setTokenEnhancers(delegates);
 
         endpoints.authenticationManager(authenticationManager)
                 .userDetailsService(userDetailsServiceImpl)
-                .tokenStore(jwtTokenStore)
-                .tokenEnhancer(enhancerChain)
-                .accessTokenConverter(jwtAccessTokenConverter);
+                .accessTokenConverter(jwtAccessTokenConverter)
+                .tokenStore(jwtTokenStore);
+
     }
+
+    //@Bean
+    //public TokenEndpoint tokenEndpoint() {
+    //    return new TokenEndpoint();
+    //}
 
 }

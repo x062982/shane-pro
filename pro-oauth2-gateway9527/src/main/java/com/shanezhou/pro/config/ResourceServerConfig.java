@@ -49,6 +49,9 @@ public class ResourceServerConfig {
     public SecurityWebFilterChain securityWebFilterChain(ServerHttpSecurity security) {
         security.oauth2ResourceServer().jwt()
                 .jwtAuthenticationConverter(jwtAuthenticationConverter());
+        // 自定义处理JWT请求头过期或签名错误的结果
+        security.oauth2ResourceServer().authenticationEntryPoint(restAuthenticationEntryPoint);
+
         security.authorizeExchange()
                 .pathMatchers(ArrayUtil.toArray(ignoreUrlsConfig.getUrls(),
                         String.class))

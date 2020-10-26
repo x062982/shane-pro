@@ -23,7 +23,7 @@ import java.util.UUID;
 @Component
 public class ApiIdempotentInterceptor implements HandlerInterceptor {
 
-    public static final String URL_TOKEN = "urlToken";
+    public static final String URL_TOKEN = "Url-Token";
 
     @Autowired
     private IIdempotentService idempotentService;
@@ -38,12 +38,14 @@ public class ApiIdempotentInterceptor implements HandlerInterceptor {
         ApiIdempotent annotation = method.getAnnotation(ApiIdempotent.class);
         if (annotation != null) {
             ApiIdempotent.ApiIdempotentEnum type = annotation.type();
-            if (type == ApiIdempotent.ApiIdempotentEnum.check) {
+            if (type == ApiIdempotent.ApiIdempotentEnum.CHECK) {
                 String urlToken = request.getHeader(URL_TOKEN);
                 check(urlToken);
 
-            } else if (ApiIdempotent.ApiIdempotentEnum.create == type) {
-
+            } else if (ApiIdempotent.ApiIdempotentEnum.CREATE == type) {
+                String urlToken = create(request);
+                idempotentService.createUrlToken(urlToken);
+                response.setHeader(URL_TOKEN, urlToken);
             }
         }
         return true;
@@ -54,15 +56,13 @@ public class ApiIdempotentInterceptor implements HandlerInterceptor {
     }
 
     private String create(HttpServletRequest request) {
-        String uri = request.getRequestURL() + "?" + System.currentTimeMillis();
-        return UUID.nameUUIDFromBytes(uri.getBytes()).toString().replaceAll("-", "");
+        String uri = request.getHeader("Authorization") + "?" + System.currentTimeMillis();
+        return UUID.nameUUIDFromBytes(uri.getBytes()).toString().replaceAll("-", "").toLowerCase();
     }
 
     @Override
     public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) throws Exception {
-        String urlToken = create(request);
-        idempotentService.createUrlToken(urlToken);
-        response.setHeader(URL_TOKEN, urlToken);
+
     }
 
     @Override

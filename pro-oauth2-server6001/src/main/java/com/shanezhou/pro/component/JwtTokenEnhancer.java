@@ -6,6 +6,7 @@ import org.springframework.security.oauth2.common.DefaultOAuth2AccessToken;
 import org.springframework.security.oauth2.common.OAuth2AccessToken;
 import org.springframework.security.oauth2.provider.OAuth2Authentication;
 import org.springframework.security.oauth2.provider.token.TokenEnhancer;
+import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
 import org.springframework.stereotype.Component;
 
 import java.util.HashMap;
@@ -16,16 +17,16 @@ import java.util.Map;
  * @author ShaneZhou
  * @since 2020/10/10 周六
  */
-@Component
-public class JwtTokenEnhancer implements TokenEnhancer {
+//@Component
+public class JwtTokenEnhancer extends JwtAccessTokenConverter {
 
     @Override
     public OAuth2AccessToken enhance(OAuth2AccessToken accessToken, OAuth2Authentication authentication) {
 
         SecurityUser user = (SecurityUser)authentication.getPrincipal();
-        Map<String, Object> info = new HashMap<>();
-        info.put("id", user.getId());
+        Map<String, Object> info = new HashMap<>(1);
+        info.put("userInfo", user);
         ((DefaultOAuth2AccessToken)accessToken).setAdditionalInformation(info);
-        return accessToken;
+        return super.enhance(accessToken, authentication);
     }
 }

@@ -27,6 +27,7 @@ public class ResourceServiceImpl {
         Collections.addAll(roleList, "ADMIN");
         rolesMap.put("/oauth2-api/test", roleList);
         rolesMap.put("/oauth2-api/token", roleList);
+        rolesMap.put("/oauth2-server/auth/login", roleList);
         List<String> roleList1 = new ArrayList<>();
         Collections.addAll(roleList1, "ADMIN", "TEST");
         rolesMap.put("/oauth2-api/user/currentUser", roleList1);

@@ -60,7 +60,6 @@ public class AccountController {
     }
 
     @GetMapping("/accounts")
-    @ApiIdempotent(type = ApiIdempotent.ApiIdempotentEnum.check)
     public List<AccountVO> getAccounts(HttpServletRequest request) {
         List<AccountEntity> accountEntities = accountService.list(null);
         List<AccountVO> accountVOs = new ArrayList<>();
@@ -68,15 +67,6 @@ public class AccountController {
             accountVOs.add(convertVO(entity));
         });
         return accountVOs;
-    }
-
-    @GetMapping("/token")
-    public String getUrlToken(HttpServletRequest request) {
-        String uri = request.getRequestURI() + "?" + System.currentTimeMillis();
-        //String urlToken = UUID.nameUUIDFromBytes(uri.getBytes()).toString().replaceAll("-", "");
-        //idempotentService.createUrlToken(urlToken);
-        int a = 1 / 0;
-        return "index";
     }
 
     public AccountVO convertVO(AccountEntity entity) {
