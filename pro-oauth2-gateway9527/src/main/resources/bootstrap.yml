@@ -8,3 +8,15 @@ spring:
       discovery:
         enabled: true
         service-id: config-server
+secure:
+  ignore:
+    urls: # 配置白名单路径
+      - "/actuator/**"
+      - "/oauth2-server/oauth/token"
+      - "/account-server/**"
+      - "/doc.html"
+      - "/swagger-resources/**"
+      - "/swagger-resources"
+      - "/swagger-ui/**"
+      - "/v2/api-docs"
+      - "/v3/api-docs"

@@ -8,6 +8,13 @@ spring:
       discovery:
         enabled: true
         service-id: config-server
+    consul:
+      host: localhost
+      port: 8500
+      discovery:
+        prefer-ip-address: true
+
+
   rabbitmq:
     password: shane
     username: shane
@@ -15,6 +22,9 @@ spring:
     port: 5672
   thymeleaf:
     cache: false
+
+swagger2:
+  switch: true
 
 management:
   endpoints:

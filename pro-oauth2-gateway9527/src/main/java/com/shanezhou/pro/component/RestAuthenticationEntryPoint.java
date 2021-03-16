@@ -28,6 +28,7 @@ public class RestAuthenticationEntryPoint implements ServerAuthenticationEntryPo
         response.getHeaders().add(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE);
         String body = JSONUtil.toJsonStr(new ResultVO<String>(401, "Unauthorized",
                 e.getMessage()));
+        System.out.println(body);
         DataBuffer buffer =  response.bufferFactory().wrap(body.getBytes(Charset.forName("UTF-8")));
         return response.writeWith(Mono.just(buffer));
     }

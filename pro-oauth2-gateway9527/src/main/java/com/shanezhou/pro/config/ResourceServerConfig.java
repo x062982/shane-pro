@@ -59,8 +59,8 @@ public class ResourceServerConfig {
                 .anyExchange().access(authorizationManager) // 鉴权管理器
                 .and()
                 .exceptionHandling()
-                .accessDeniedHandler(restfulAccessDeniedHandler)    // 处理未授权
-                .authenticationEntryPoint(restAuthenticationEntryPoint) // 处理未认证
+                //.accessDeniedHandler(restfulAccessDeniedHandler)    // 处理未授权
+                //.authenticationEntryPoint(restAuthenticationEntryPoint) // 处理未认证
                 .and()
                 .csrf().disable();
         return security.build();

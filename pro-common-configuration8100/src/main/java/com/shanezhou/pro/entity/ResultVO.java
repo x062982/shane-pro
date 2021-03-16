@@ -4,6 +4,8 @@ import com.shanezhou.pro.enums.ExceptionCodeEnum;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
+import java.util.Optional;
+
 /**
  * @author ShaneZhou
  * @since 2020/9/30 周三
@@ -12,7 +14,7 @@ import lombok.Data;
 @AllArgsConstructor
 public class ResultVO<T> {
 
-    private int code;
+    private Integer code;
     private String message;
 
     private T data;

@@ -12,6 +12,7 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
  */
 @SpringBootApplication
 @EnableDiscoveryClient
+@EnableFeignClients
 public class AccountServerApplication8001 {
 
     public static void main(String[] args) {

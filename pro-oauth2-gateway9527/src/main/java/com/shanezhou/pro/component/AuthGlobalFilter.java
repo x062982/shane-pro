@@ -19,7 +19,7 @@ import java.text.ParseException;
  */
 @Component
 public class AuthGlobalFilter implements GlobalFilter, Ordered {
-
+    
     @Override
     public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
         String authorization = exchange.getRequest().getHeaders().getFirst("Authorization");

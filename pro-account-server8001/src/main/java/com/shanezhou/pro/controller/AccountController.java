@@ -8,6 +8,10 @@ import com.shanezhou.pro.entity.vo.AccountVO;
 import com.shanezhou.pro.exception.APIException;
 import com.shanezhou.pro.service.IAccountService;
 import com.shanezhou.pro.service.IIdempotentService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
@@ -25,6 +29,7 @@ import java.util.UUID;
  */
 @RestController
 @RequestMapping("/account")
+@Api(tags = {"账户控制类"})
 public class AccountController {
 
     @Autowired
@@ -48,6 +53,8 @@ public class AccountController {
     }
 
     @GetMapping("/account/username")
+    @ApiOperation(value = "根据用户名查询账户")
+    @ApiImplicitParams(@ApiImplicitParam (name = "username", value = "用户名", dataType = "文本"))
     public AccountVO getAccountByName(@RequestParam("username") String username) {
         AccountEntity accountEntity = accountService
                 .getOne(new QueryWrapper<AccountEntity>()
@@ -60,6 +67,7 @@ public class AccountController {
     }
 
     @GetMapping("/accounts")
+    @ApiOperation(value = "查询所有的账户")
     public List<AccountVO> getAccounts(HttpServletRequest request) {
         List<AccountEntity> accountEntities = accountService.list(null);
         List<AccountVO> accountVOs = new ArrayList<>();

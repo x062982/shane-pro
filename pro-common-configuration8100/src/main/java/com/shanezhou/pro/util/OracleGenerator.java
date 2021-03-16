@@ -82,11 +82,11 @@ public class OracleGenerator {
 
         // 数据源配置
         DataSourceConfig dsc = new DataSourceConfig();
-        dsc.setUrl("jdbc:oracle:thin:@localhost:1521:orcl");
+        dsc.setUrl("jdbc:oracle:thin:@10.0.14.20:1521:stdb");
         dsc.setDbType(DbType.ORACLE);
         dsc.setDriverName("oracle.jdbc.driver.OracleDriver");
-        dsc.setUsername("C##SHANE");
-        dsc.setPassword("123456");
+        dsc.setUsername("foxdb");
+        dsc.setPassword("foxdb");
         mpg.setDataSource(dsc);
 
         // 包配置
@@ -103,13 +103,13 @@ public class OracleGenerator {
             @Override
             public void initMap() {
                 // to do nothing
-                Map<String, Object> map = new HashMap<>();
+                Map<String, Object> map = new HashMap<>(6);
                 if (gc.getIdType().equals(IdType.INPUT)) {
                     // 加入序列名
                     map.put("seqName", seqName);
                     map.put("tableLevel1", tableLevel1);
                     map.put("tableLevel2", finalTableLevel);
-                    map.put("isExtend", true);
+                    map.put("isExtend", false);
                     map.put("project", project);
                     // 包含的值：{ignore，notNull}
                     map.put("updateStrategy", "notNull");

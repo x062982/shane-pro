@@ -6,6 +6,12 @@
     <groupId>com.shanezhou.cloud</groupId>
     <artifactId>shane-pro</artifactId>
     <version>${pro.shane.version}</version>
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-web</artifactId>
+        </dependency>
+    </dependencies>
     <name>shane-pro</name>
     <packaging>pom</packaging>
 

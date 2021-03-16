@@ -25,14 +25,16 @@ public class OAuth2TokenVO {
 
     private String tokenHead = "Bearer ";
 
+    public OAuth2TokenVO() {
+
+    }
     public OAuth2TokenVO(OAuth2AccessToken oAuth2AccessToken) {
         this.accessToken = oAuth2AccessToken.getValue();
         this.tokenType = oAuth2AccessToken.getTokenType();
         this.refreshToken = oAuth2AccessToken.getRefreshToken().getValue();
         this.expiresIn = oAuth2AccessToken.getExpiresIn();
         this.scope = oAuth2AccessToken.getScope();
-        this.infoMap = oAuth2AccessToken.getAdditionalInformation();
-
+        //this.infoMap = oAuth2AccessToken.getAdditionalInformation();
     }
 
     public String getAccessToken() {
